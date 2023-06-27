@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ newspaper.title }}</h1>
+  <br>
+  <div>{{ newspaper.content }}</div>
+  <br>
+  <h4>Publishers:</h4>
+  <ul>
+    {% for publisher in newspaper.publishers.all %}
+      <li>{{ publisher.first_name }} {{ publisher.last_name }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

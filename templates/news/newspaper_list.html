@@ -3,7 +3,7 @@
 {% block content %}
   <ul>
     {% for news in newspaper_list %}
-      <li>{{ news }}</li>
+      <li><a href="{% url "news:newspaper-detail" pk=news.id %}">{{ news.title }}</a> - {{ news.topic }}</li>
     {% endfor %}
   </ul>
 

@@ -18,7 +18,11 @@ def index(request):
     return render(request, "news/index.html", context=context)
 
 
-class TopicsListView(generic.ListView):
+class TopicListView(generic.ListView):
+    model = Topic
+
+
+class TopicDetailView(generic.DetailView):
     model = Topic
 
 
@@ -27,6 +31,15 @@ class NewspaperListView(generic.ListView):
     queryset = Newspaper.objects.select_related("topic")
 
 
+class NewspaperDetailView(generic.DetailView):
+    model = Newspaper
+
+
 class RedactorListView(generic.ListView):
     model = Redactor
     queryset = Redactor.objects.prefetch_related("newspapers")
+
+
+class RedactorDetailView(generic.DetailView):
+    model = Redactor
+    queryset = Redactor.objects.prefetch_related("newspapers__topic")

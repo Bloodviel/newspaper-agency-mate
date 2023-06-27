@@ -3,7 +3,7 @@
 {% block content %}
   <ul>
     {% for redactor in redactor_list %}
-      <li>{{ redactor }}</li>
+      <li><a href="{% url "news:redactor-detail" pk=redactor.id%}">{{ redactor }}</a></li>
     {% endfor %}
   </ul>
 
