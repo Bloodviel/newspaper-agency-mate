@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ topic.name }}</h1>
+  <h1>{{ topic.name }} <a href="{% url 'news:topic-update' pk=topic.id %}" class="btn btn-secondary">Update</a></h1>
   <ul>
     {% for topic in topic.newspapers.all %}
-      <li><a href="{% url "news:newspaper-detail" pk=topic.id %}">{{ topic.title }}</a>
+      <li><a href="{% url 'news:newspaper-detail' pk=topic.id %}">{{ topic.title }}</a>
         <h6>Publishers:</h6>
         <ul>
           {% for publisher in topic.publishers.all %}

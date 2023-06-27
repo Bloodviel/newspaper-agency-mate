@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ newspaper.title }}</h1>
+  <h1>{{ newspaper.title }} <a href="{% url 'news:newspaper-update' pk=newspaper.id %}" class="btn btn-secondary">Update</a></h1>
+  <br>
   <br>
   <div>{{ newspaper.content }}</div>
   <br>
