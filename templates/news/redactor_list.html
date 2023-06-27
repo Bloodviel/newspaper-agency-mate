@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <ul>
+    {% for redactor in redactor_list %}
+      <li>{{ redactor }}</li>
+    {% endfor %}
+  </ul>
+
+
+{% endblock %}

@@ -1,6 +1,6 @@
 <ul>
   <li><a href="{% url "news:index" %}">Main page</a></li>
-  <li><a href="#">Topics</a></li>
-  <li><a href="#">Newspapers</a></li>
-  <li><a href="#">Redactors</a></li>
+  <li><a href="{% url "news:topic-list" %}">Topics</a></li>
+  <li><a href="{% url "news:newspaper-list" %}">Newspapers</a></li>
+  <li><a href="{% url "news:redactor-list" %}">Redactors</a></li>
 </ul>
