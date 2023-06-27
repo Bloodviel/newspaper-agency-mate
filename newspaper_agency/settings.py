@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "debug_toolbar",
+    "crispy_bootstrap4",
+    "crispy_forms",
     "news"
 ]
 
@@ -75,6 +77,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "newspaper_agency.wsgi.application"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
 # Database
