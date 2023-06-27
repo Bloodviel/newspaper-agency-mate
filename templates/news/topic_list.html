@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <h1>Topic list</h1>
+  {% if user.is_authenticated %}
+    <a href="{% url 'news:topic-create' %}" class="btn btn-primary link-to-page">Create</a>
+  {% else %}
+    You have to <a href="{% url 'news:topic-create' %}" class="btn btn-primary link-to-page">Login</a> to add new topic.
+  {% endif %}
+  <br>
   <ul>
     {% for topic in topic_list %}
-      <li><a href="{% url "news:topic-detail" pk=topic.id %}">{{ topic }}</a></li>
+      <li><a href="{% url "news:topic-detail" pk=topic.id %}">{{ topic }}</a> - {{ topic.newspapers.count }}</li>
     {% endfor %}
   </ul>
 

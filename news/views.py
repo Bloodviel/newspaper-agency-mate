@@ -1,4 +1,6 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 
 from news.models import Redactor, Newspaper, Topic
@@ -26,6 +28,12 @@ class TopicDetailView(generic.DetailView):
     model = Topic
 
 
+class TopicCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Topic
+    fields = "__all__"
+    success_url = reverse_lazy("news:topic-list")
+
+
 class NewspaperListView(generic.ListView):
     model = Newspaper
     queryset = Newspaper.objects.select_related("topic")
@@ -33,6 +41,12 @@ class NewspaperListView(generic.ListView):
 
 class NewspaperDetailView(generic.DetailView):
     model = Newspaper
+
+
+class NewspaperCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Newspaper
+    fields = "__all__"
+    success_url = reverse_lazy("news:newspaper-list")
 
 
 class RedactorListView(generic.ListView):
