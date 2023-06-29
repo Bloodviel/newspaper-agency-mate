@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ redactor.username }}</h1>
+  <h1>{{ redactor.username }}
+    {% if user == redactor %}
+    <a href="{% url 'news:redactor-update' pk=redactor.id %}" class="btn btn-secondary">Update</a>
+    {% endif %}
+  </h1>
   <p><strong>First name:</strong> {{ redactor.first_name }}</p>
   <p><strong>Last name:</strong> {{ redactor.last_name }}</p>
   <p><strong>Years of experience:</strong> {{ redactor.years_of_experience }}</p>
