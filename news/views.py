@@ -3,9 +3,15 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from news.forms import RedactorCreationForm, RedactorYearsUpdateForm, NewspaperCreateForm, TopicSearchForm, \
-    NewspaperSearchForm, RedactorSearchForm
-from news.models import Redactor, Newspaper, Topic
+from news.forms import (
+    NewspaperCreateForm,
+    NewspaperSearchForm,
+    RedactorCreationForm,
+    RedactorSearchForm,
+    RedactorYearsUpdateForm,
+    TopicSearchForm,
+)
+from news.models import Newspaper, Redactor, Topic
 
 
 def index(request):

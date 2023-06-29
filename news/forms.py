@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.core.exceptions import ValidationError
 
-from news.models import Redactor, Newspaper
+from news.models import Newspaper, Redactor
 
 
 class RedactorCreationForm(UserCreationForm):
@@ -24,7 +24,9 @@ class RedactorYearsUpdateForm(forms.ModelForm):
         fields = ["years_of_experience"]
 
     def clean_years_of_experience(self):
-        return validate_years_of_experience(self.cleaned_data["years_of_experience"])
+        return validate_years_of_experience(
+            self.cleaned_data["years_of_experience"]
+        )
 
 
 class RedactorSearchForm(forms.Form):
@@ -43,7 +45,9 @@ class TopicSearchForm(forms.Form):
         max_length=63,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search for name"})
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search for name"}
+        )
     )
 
 
@@ -72,6 +76,8 @@ class NewspaperSearchForm(forms.Form):
 
 def validate_years_of_experience(years_of_experience):
     if years_of_experience < 0:
-        raise ValidationError("Years of experience should be greater or equal 0")
+        raise ValidationError(
+            "Years of experience should be greater or equal 0"
+        )
 
     return years_of_experience

@@ -1,8 +1,23 @@
 from django.urls import path
 
-from news.views import index, TopicListView, NewspaperListView, RedactorListView, TopicDetailView, NewspaperDetailView, \
-    RedactorDetailView, TopicCreateView, NewspaperCreateView, TopicUpdateView, NewspaperUpdateView, TopicDeleteView, \
-    NewspaperDeleteView, RedactorCreateView, RedactorUpdateView, RedactorDeleteView
+from news.views import (
+    index,
+    NewspaperListView,
+    NewspaperDetailView,
+    NewspaperCreateView,
+    NewspaperUpdateView,
+    NewspaperDeleteView,
+    RedactorListView,
+    RedactorDetailView,
+    RedactorCreateView,
+    RedactorUpdateView,
+    RedactorDeleteView,
+    TopicListView,
+    TopicDetailView,
+    TopicCreateView,
+    TopicUpdateView,
+    TopicDeleteView
+)
 
 urlpatterns = [
     path("", index, name="index"),
