@@ -27,6 +27,26 @@ class RedactorYearsUpdateForm(forms.ModelForm):
         return validate_years_of_experience(self.cleaned_data["years_of_experience"])
 
 
+class RedactorSearchForm(forms.Form):
+    username = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search for username"}
+        )
+    )
+
+
+class TopicSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=63,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search for name"})
+    )
+
+
 class NewspaperCreateForm(forms.ModelForm):
     publishers = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.all(),
@@ -37,6 +57,17 @@ class NewspaperCreateForm(forms.ModelForm):
     class Meta:
         model = Newspaper
         fields = "__all__"
+
+
+class NewspaperSearchForm(forms.Form):
+    title = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search for title"}
+        )
+    )
 
 
 def validate_years_of_experience(years_of_experience):

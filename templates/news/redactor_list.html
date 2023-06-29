@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>Redactor list</h1>
@@ -7,6 +8,10 @@
   {% else %}
     You have to <a href="{% url 'news:redactor-create' %}" class="btn btn-primary link-to-page">Login</a> to add new redactor.
   {% endif %}
+  <form action="" method="get" class="form-inline">
+    {{ search_form|crispy }}
+    <input type="submit" value="🔍" class="btn btn-secondary">
+  </form>
   <br>
   <ul>
     {% for redactor in redactor_list %}
