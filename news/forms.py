@@ -27,6 +27,18 @@ class RedactorYearsUpdateForm(forms.ModelForm):
         return validate_years_of_experience(self.cleaned_data["years_of_experience"])
 
 
+class NewspaperCreateForm(forms.ModelForm):
+    publishers = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
+    class Meta:
+        model = Newspaper
+        fields = "__all__"
+
+
 def validate_years_of_experience(years_of_experience):
     if years_of_experience < 0:
         raise ValidationError("Years of experience should be greater or equal 0")
