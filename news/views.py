@@ -25,7 +25,6 @@ def index(request):
 class TopicListView(generic.ListView):
     model = Topic
     paginate_by = 10
-    queryset = Topic.objects.prefetch_related("newspapers")
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TopicListView, self).get_context_data(**kwargs)
@@ -37,12 +36,14 @@ class TopicListView(generic.ListView):
         return context
 
     def get_queryset(self):
+        queryset = Topic.objects.prefetch_related("newspapers")
         form = TopicSearchForm(self.request.GET)
 
         if form.is_valid():
-            return self.queryset.filter(
+            return queryset.filter(
                 name__icontains=form.cleaned_data["name"]
             )
+        return queryset
 
 
 class TopicDetailView(generic.DetailView):
@@ -68,7 +69,6 @@ class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class NewspaperListView(generic.ListView):
     model = Newspaper
-    queryset = Newspaper.objects.select_related("topic")
     paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -81,12 +81,15 @@ class NewspaperListView(generic.ListView):
         return context
 
     def get_queryset(self):
+        queryset = Newspaper.objects.select_related("topic")
         form = NewspaperSearchForm(self.request.GET)
 
         if form.is_valid():
-            return self.queryset.filter(
+            return queryset.filter(
                 title__icontains=form.cleaned_data["title"]
             )
+
+        return queryset
 
 
 class NewspaperDetailView(generic.DetailView):
@@ -112,7 +115,6 @@ class NewspaperDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class RedactorListView(generic.ListView):
     model = Redactor
-    queryset = Redactor.objects.prefetch_related("newspapers")
     paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -125,12 +127,15 @@ class RedactorListView(generic.ListView):
         return context
 
     def get_queryset(self):
+        queryset = Redactor.objects.prefetch_related("newspapers")
         form = RedactorSearchForm(self.request.GET)
 
         if form.is_valid():
-            return self.queryset.filter(
+            return queryset.filter(
                 username__icontains=form.cleaned_data["username"]
             )
+
+        return queryset
 
 
 class RedactorDetailView(generic.DetailView):
