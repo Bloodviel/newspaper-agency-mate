@@ -1,21 +1,39 @@
 {% extends "base.html" %}
-{% load crispy_forms_filters %}
+
+{% block title %} Redactors {% endblock %}
+
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-  <h1>Redactor list</h1>
-  {% if user.is_authenticated %}
-    <a href="{% url 'news:redactor-create' %}" class="btn btn-primary link-to-page">Create</a>
-  {% else %}
-    You have to <a href="{% url 'news:redactor-create' %}" class="btn btn-primary link-to-page">Login</a> to add new redactor.
-  {% endif %}
-
-  {% include "includes/searching.html" %}
-  <br>
-  <ul>
-    {% for redactor in redactor_list %}
-      <li><a href="{% url "news:redactor-detail" pk=redactor.id%}">{{ redactor }}</a></li>
-    {% endfor %}
-  </ul>
 
 
-{% endblock %}
+<div class="page-header min-vh-75 relative" style="background-image: url('/static/assets/img/main-bg.jpg')">
+      <span class="mask bg-dark opacity-4"></span>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <h1 class="text-white pt-3 mt-n5">Redactors:</h1>
+          </div>
+        </div>
+      </div>
+  </div>
+<div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
+  {% block searching %}
+    {% include "includes/searching.html" %}
+  {% endblock %}
+  <div class="container">
+    <div class="section text-center">
+      {% if redactor_list %}
+      {% for redactor in redactor_list %}
+        <h3 class="title"><a href="{% url 'news:redactor-detail' pk=redactor.id %}">{{ redactor.first_name }} {{ redactor.last_name }} {% if redactor.is_superuser %}(admin){% else %}({{ redactor.username }}){% endif %}</a></h3>
+      {% endfor %}
+      {% else %}
+      <h3 class="title"><i>There is no redactors yet</i></h3>
+    {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

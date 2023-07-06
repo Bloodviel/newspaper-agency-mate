@@ -1,13 +1,147 @@
 {% extends "base.html" %}
 
-{% block title %}
-  <title>Newspaper agency</title>
-{% endblock %}
+{% block title %} Main {% endblock %}
+
+{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-  <ul>
-    <li>Numbers of topics: {{ num_topic }}</li>
-    <li>Numbers of Newspapers: {{ num_newspapers }}</li>
-    <li>Number of redactors: {{ num_redactors }}</li>
-  </ul>
+
+<body class="index-page bg-gray-200">
+  <header class="header-2">
+    <div class="page-header min-vh-75 relative" style="background-image: url('/static/assets/img/main-bg.jpg')">
+      <span class="mask bg-dark opacity-4"></span>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <h1 class="text-white pt-3 mt-n5">Newspaper-Agency-Mate</h1>
+            <p class="lead text-white mt-3">Free & Open newspaper agency in the world. <br/> Discover the World in Ink and Paper! </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="pt-3 pb-4" id="count-stats">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 mx-auto py-3">
+          <div class="row">
+            <div class="col-md-4 position-relative">
+              <div class="p-3 text-center">
+                <h1 class="text-gradient text-dark"><span id="state1" countTo={{ num_topic }}>0</span>+</h1>
+                <h5 class="mt-3"><a href="{% url 'news:topic-list' %}">Topics</a></h5>
+                <p class="text-sm font-weight-normal">We can propose for you</p>
+              </div>
+              <hr class="vertical dark">
+            </div>
+            <div class="col-md-4 position-relative">
+              <div class="p-3 text-center">
+                <h1 class="text-gradient text-dark"> <span id="state2" countTo={{ num_newspapers }}>0</span>+</h1>
+                <h5 class="mt-3"><a href="{% url 'news:newspaper-list' %}">Newspapers</a></h5>
+                <p class="text-sm font-weight-normal">We have already published {{ num_newspapers }} articles.</p>
+              </div>
+              <hr class="vertical dark">
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 text-center">
+                <h1 class="text-gradient text-dark" id="state3" countTo={{ num_redactors }}>0</h1>
+                <h5 class="mt-3"><a href="{% url 'news:redactor-list' %}">Redactors</a></h5>
+                <p class="text-sm font-weight-normal">Work with us.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-5 py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-4 ms-auto me-auto p-lg-4 mt-lg-0 mt-4">
+            <div class="rotating-card-container">
+              <div class="card card-rotate card-background card-background-mask-pr shadow-secondary mt-md-0 mt-5">
+                <div class="front front-background" style="background-image: url('/static/assets/img/bg_1.jpg'); background-size: cover;">
+                  <div class="card-body py-7 text-center">
+                    <i class="material-icons text-white text-4xl my-3">touch_app</i>
+                    <h3 class="text-white">We are provides <br /> news for people</h3>
+                    <p class="text-white opacity-8">Our main goal is satisfied all customers needs</p>
+                  </div>
+                </div>
+                <div class="back back-background" style="background-image: url('/static/assets/img/bg-1.jpg'); background-size: cover;">
+                  <div class="card-body pt-7 text-center">
+                    <h3 class="text-white">Selection of editors!</h3>
+                    <p class="text-white opacity-8">We carefully select our editors</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="col-lg-6 ms-auto">
+          <div class="row justify-content-start">
+            <div class="col-md-6">
+              <div class="info">
+                <i class="material-icons text-dark text-dark text-3xl">language</i>
+                <h5 class="font-weight-bolder mt-3">Worldwide</h5>
+                <p class="pe-5">We demonstrate news from all over the world.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="info">
+                <i class="material-icons text-dark text-dark text-3xl">copy_content</i>
+                <h5 class="font-weight-bolder mt-3">Share with your friends</h5>
+                <p class="pe-3">You can share our news with your best friends.</p>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-start mt-5">
+            <div class="col-md-6 mt-3">
+              <i class="material-icons text-dark text-dark text-3xl">price_change</i>
+              <h5 class="font-weight-bolder mt-3">Save Time & Money</h5>
+              <p class="pe-5">We are cheaper and more accessible.</p>
+            </div>
+            <div class="col-md-6 mt-3">
+              <div class="info">
+                <i class="material-icons text-dark text-dark text-3xl">update</i>
+                <h5 class="font-weight-bolder mt-3">Hot news</h5>
+                <p class="pe-3">The fastest news-agency.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  {% include 'includes/scripts.html' %}
+
+  <script type="text/javascript">
+
+    if (document.getElementById('state1')) {
+      const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+      if (!countUp.error) {
+        countUp.start();
+      } else {
+        console.error(countUp.error);
+      }
+    }
+    if (document.getElementById('state2')) {
+      const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
+      if (!countUp1.error) {
+        countUp1.start();
+      } else {
+        console.error(countUp1.error);
+      }
+    }
+    if (document.getElementById('state3')) {
+      const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+      if (!countUp2.error) {
+        countUp2.start();
+      } else {
+        console.error(countUp2.error);
+      };
+    }
+  </script>
+  </body>
+
 {% endblock %}

@@ -1,21 +1,60 @@
 {% extends "base.html" %}
 
+{% block title %} {{ topic.name }} {% endblock %}
+
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
 {% block content %}
-  <h1>{{ topic.name }}
-    <a href="{% url 'news:topic-update' pk=topic.id %}" class="btn btn-secondary">Update</a>
-    <a href="{% url 'news:topic-delete' pk=topic.id %}" class="btn btn-danger">Delete</a>
-   </h1>
-  <ul>
-    {% for topic in topic.newspapers.all %}
-      <li><a href="{% url 'news:newspaper-detail' pk=topic.id %}">{{ topic.title }}</a>
-        <h6>Publishers:</h6>
-        <ul>
-          {% for publisher in topic.publishers.all %}
-            <li>{{ publisher.first_name }} {{ publisher.last_name }}</li>
-          {% endfor %}
-          <br>
-        </ul>
-      </li>
-    {% endfor %}
-  </ul>
-{% endblock %}
+
+
+  <div class="page-header min-vh-75 relative" style="background-image: url('/static/assets/img/main-bg.jpg')">
+      <span class="mask bg-dark opacity-4"></span>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <h1 class="text-white pt-3 mt-n5">{{ topic.name}}</h1>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6 ">
+    <div class="container">
+      <form method="post" enctype="multipart/form-data" class="form-register mt-4">
+
+      <div class="d-flex text-muted pt-3 flex-column flex-lg-row">
+          <div class="pb-3 mb-0 small lh-sm border-bottom">
+            <p><strong class="d-block text-gray-dark text-3xl">#{{topic.name}}</strong></p>
+              <p class="text-2xl"><b>Count of publishing:</b> <i>{{ topic.newspapers.count }}</i></p>
+            <hr>
+            <p class="text-2xl"><b>Published newspaper{{ topic.newspapers.count|pluralize }}:</b>
+              <i>
+                {% for newspaper in topic.newspapers.all %}
+                <p class="text-2xl"><a href="{% url 'news:newspaper-detail' pk=newspaper.id %}">{{newspaper.title}}</a></p>
+                {% empty %}
+                  no newspapers
+              </i>
+            </p>
+
+            {% endfor %}
+          </div>
+        </div>
+      {%csrf_token%}
+      {% if user.is_authenticated %}
+        <a class="btn btn-outline-secondary" href="{% url 'news:topic-update' pk=topic.id %}">
+        Update
+        </a>
+        <a class="btn btn-outline-primary" href="{% url 'news:topic-delete' pk=topic.id %}">
+          Delete
+        </a>
+      {% endif %}
+    </form>
+    </div>
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

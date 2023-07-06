@@ -1,18 +1,59 @@
 {% extends "base.html" %}
 
+{% block title %} {{ newspaper.title }} {% endblock %}
+
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
 {% block content %}
-  <h1>{{ newspaper.title }}
-    <a href="{% url 'news:newspaper-update' pk=newspaper.id %}" class="btn btn-secondary">Update</a>
-    <a href="{% url 'news:newspaper-delete' pk=newspaper.id %}" class="btn btn-danger">Delete</a>
-  </h1>
-  <br>
-  <br>
-  <div>{{ newspaper.content }}</div>
-  <br>
-  <h4>Publishers:</h4>
-  <ul>
-    {% for publisher in newspaper.publishers.all %}
-      <li>{{ publisher.first_name }} {{ publisher.last_name }}</li>
-    {% endfor %}
-  </ul>
-{% endblock %}
+
+
+<div class="page-header min-vh-75 relative" style="background-image: url('/static/assets/img/main-bg.jpg')">
+      <span class="mask bg-dark opacity-4"></span>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <h1 class="text-white pt-3 mt-n5">{{ newspaper.title}}</h1>
+          </div>
+        </div>
+      </div>
+  </div>
+<div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
+  <div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="alert alert-light m-2 text-lg-center">
+          <p>{{ newspaper.content }}</p>
+        </div>
+    </div>
+  </div>
+    <div class="row">
+      <div class="mt-2 text-sm-end">
+        {% for topic in newspaper.topic.all %}
+          <span class="text-muted ">#{{ topic.name.lower }}</span>
+        {% endfor %}
+      </div>
+    <div>
+    <h3>Publish by:</h3>
+      <ul>
+        {% for publisher in newspaper.publishers.all %}
+          <li><a href="{% url 'news:redactor-detail' pk=publisher.id %}">{{ publisher.first_name }} {{ publisher.last_name }}</a></li>
+        {% empty %}
+            <p>No publishers yet</p>
+          {% endfor %}
+        </ul>
+      {% if user.is_authenticated %}
+            <div class="list">
+            <a class="btn btn-outline-secondary" href="{% url 'news:newspaper-update' pk=newspaper.id %}">
+              Update
+            </a>
+            <a class="btn btn-outline-primary" href="{% url 'news:newspaper-delete' pk=newspaper.id %}">
+              Delete
+            </a>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
