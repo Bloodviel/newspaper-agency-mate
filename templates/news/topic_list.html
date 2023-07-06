@@ -8,11 +8,9 @@
   {% else %}
     You have to <a href="{% url 'news:topic-create' %}" class="btn btn-primary link-to-page">Login</a> to add new topic.
   {% endif %}
+
+  {% include "includes/searching.html" %}
   <br>
-  <form action="" method="get" class="form-inline">
-    {{ search_form|crispy }}
-    <input type="submit" value="🔍" class="btn btn-secondary">
-  </form>
   <ul>
     {% for topic in topic_list %}
       <li><a href="{% url "news:topic-detail" pk=topic.id %}">{{ topic }}</a> - {{ topic.newspapers.count }}</li>
