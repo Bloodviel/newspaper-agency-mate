@@ -26,7 +26,9 @@ class AdminSiteTests(TestCase):
         self.assertContains(response, self.obj_redactor.years_of_experience)
 
     def test_redactor_detailed_years_of_experience_listed(self):
-        url = reverse("admin:news_redactor_change", args=[self.obj_redactor.id])
+        url = reverse(
+            "admin:news_redactor_change", args=[self.obj_redactor.id]
+        )
         response = self.client.get(url)
 
         self.assertContains(response, self.obj_redactor.years_of_experience)

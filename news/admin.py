@@ -42,4 +42,3 @@ class NewspaperAdmin(admin.ModelAdmin):
     list_filter = ["published_date"]
     search_fields = ["title"]
     ordering = ["-published_date"]
-
