@@ -15,8 +15,8 @@ Python3 must be already installed
 ```shell
 git clone https://github.com/Bloodviel/newspaper-agency-mate.git
 cd newspaper_agency
-python3 -m venv venv
-source venv/bin/activate
+venv\Scripts\activate (on Windows)
+source venv/bin/activate (on macOS)
 pip install -r requirements.txt
 python manage.py runserver
 ```
